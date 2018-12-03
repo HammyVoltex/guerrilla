@@ -9,32 +9,13 @@ Verde Acqua - #003333
 
 */
 
-
-
 body {
   background: #363636;
-  color: #f0f0f0;
+  color: #c3c3c3;
 }
 
-#messenger {
-  font-family: monospace;
-  font-size: 20px;
-  white-space: nowrap;
-  text-shadow: 0 2px 2px rgba(#000, 0.9);
+h1 {
   color: #ffa500;
-  font-size: 20px;
-}
-
-#header{
-  background-color: red;
-  background-image: url(bg2.jpg);
-  background-size: cover;
-  background-position: center;
-  height: 50vh;
-}
-
-.bg-darker{
-  background-color: #222
 }
 
 ul {
@@ -96,4 +77,29 @@ li > a:focus::before, a:hover::before, a:focus::after, a:hover::after {
   max-height: 100%;
   transition-delay: .10s;
   border-color: rgba(255,165,0,1);
+}
+
+#messenger {
+  font-family: monospace;
+  font-size: 20px;
+  white-space: nowrap;
+  text-shadow: 0 2px 2px rgba(#000, 0.9);
+  color: #ffa500;
+  font-size: 20px;
+}
+
+#header{
+  background-color: red;
+  background-image: url(bg2.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+}
+
+.container, .container-fluid {
+  background-color: #363636;
+}
+
+.bg-darker{
+  background-color: #222;
 }
