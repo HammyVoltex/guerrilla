@@ -1,0 +1,131 @@
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="custom.scss">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-darker">
+		<a class="navbar-brand" id="messenger" href="#">Guerrilla Motorbikes</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse d-flex justify-content-end">
+	    <ul class="navbar-nav">
+	      <li class="nav-item active">
+	        <a class="nav-link" href="#" data-text="Div1">Div 1</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#" data-text="Div1">Div 2</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#" data-text="Div1">Div 3</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#" data-text="Div1">Div 4</a>
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
+
+	<div id="header" class="container-fluid">
+	</div>
+
+	<div class="container-fluid">
+		<h1 class="display-2 text-center">Chi Siamo</h1>
+	</div>
+
+	<script>
+		var Messenger = function(el){
+		  'use strict';
+		  var m = this;
+		  
+		  m.init = function(){
+		    m.codeletters = "&#*+%?£@§$";
+		    m.message = 0;
+		    m.current_length = 0;
+		    m.fadeBuffer = false;
+		    m.messages = [
+		      'Guerrilla Motobikes'
+		    ];
+		    
+		    setTimeout(m.animateIn, 100);
+		  };
+		  
+		  m.generateRandomString = function(length){
+		    var random_text = '';
+		    while(random_text.length < length){
+		      random_text += m.codeletters.charAt(Math.floor(Math.random()*m.codeletters.length));
+		    } 
+		    
+		    return random_text;
+		  };
+		  
+		  m.animateIn = function(){
+		    if(m.current_length < m.messages[m.message].length){
+		      m.current_length = m.current_length + 2;
+		      if(m.current_length > m.messages[m.message].length) {
+		        m.current_length = m.messages[m.message].length;
+		      }
+		      
+		      var message = m.generateRandomString(m.current_length);
+		      $(el).html(message);
+		      
+		      setTimeout(m.animateIn, 20);
+		    } else { 
+		      setTimeout(m.animateFadeBuffer, 20);
+		    }
+		  };
+		  
+		  m.animateFadeBuffer = function(){
+		    if(m.fadeBuffer === false){
+		      m.fadeBuffer = [];
+		      for(var i = 0; i < m.messages[m.message].length; i++){
+		        m.fadeBuffer.push({c: (Math.floor(Math.random()*12))+1, l: m.messages[m.message].charAt(i)});
+		      }
+		    }
+		    
+		    var do_cycles = false;
+		    var message = ''; 
+		    
+		    for(var i = 0; i < m.fadeBuffer.length; i++){
+		      var fader = m.fadeBuffer[i];
+		      if(fader.c > 0){
+		        do_cycles = true;
+		        fader.c--;
+		        message += m.codeletters.charAt(Math.floor(Math.random()*m.codeletters.length));
+		      } else {
+		        message += fader.l;
+		      }
+		    }
+		    
+		    $(el).html(message);
+		    
+		    if(do_cycles === true){
+		      setTimeout(m.animateFadeBuffer, 90);
+		    } else {
+		      setTimeout(m.cycleText, 10000);
+		    }
+		  };
+		  
+		  m.cycleText = function(){
+		    m.message = m.message + 1;
+		    if(m.message >= m.messages.length){
+		      m.message = 0;
+		    }
+		    
+		    m.current_length = 0;
+		    m.fadeBuffer = false;
+		    $(el).html('');
+		    
+		    setTimeout(m.animateIn, 900);
+		  };
+		  
+		  m.init();
+		}
+
+		console.clear();
+		var messenger = new Messenger($('#messenger'));
+	</script>
+</body>
